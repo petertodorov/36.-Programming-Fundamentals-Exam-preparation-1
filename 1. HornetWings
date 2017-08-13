@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+class HornetWings
+{
+    static void Main(string[] args)
+    {
+        long flaps= long.Parse(Console.ReadLine());
+        decimal distancePerFlip = decimal.Parse(Console.ReadLine());
+        long endurance = long.Parse(Console.ReadLine());
+        int rest = 5;
+
+        decimal distance = (flaps / 1000M) * distancePerFlip;
+        long time = flaps / 100;
+        long restingTime = (flaps / endurance)*rest;
+        time += restingTime;
+        Console.WriteLine($"{distance:F2} m.\n{time} s.");
+    }
+}
