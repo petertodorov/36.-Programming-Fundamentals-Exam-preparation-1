@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+class HornetAssault
+{
+    static void Main(string[] args)
+    {
+        List<long> beehives = Console.ReadLine().Split(' ').Select(long.Parse).ToList();
+        List<long> hornets = Console.ReadLine().Split(' ').Select(long.Parse).ToList();
+        long summedPower = hornets.Sum();
+       
+        for (int i = 0; i < beehives.Count; i++)
+        {
+            if (hornets.Count==0)
+            {
+                break;
+            }
+            if (beehives[i] >= summedPower)
+            {
+                long newNum = beehives[i] - summedPower;
+                beehives[i] = newNum;
+                hornets.RemoveAt(0);
+                summedPower = hornets.Sum();
+            }
+            else
+            {
+                beehives[i] -=summedPower;
+            }
+        }
+        List<long> toPrintBees = new List<long>();
+        List<long> toPrintHornets= new List<long>();
+
+        if (beehives.Any(x=>x>0))
+        {
+            for (int i = 0; i < beehives.Count; i++)
+            {
+                if (beehives[i]>0)
+                {
+                    toPrintBees.Add(beehives[i]);
+                }
+            }
+            Console.WriteLine(String.Join(" ", toPrintBees));
+        }
+        else
+        {
+            for (int i = 0; i < hornets.Count; i++)
+            {
+                if (hornets[i]>0)
+                {
+                    toPrintHornets.Add(hornets[i]);
+                }
+            }
+            Console.WriteLine(String.Join(" ", toPrintHornets));
+
+        }
+    }
+}
