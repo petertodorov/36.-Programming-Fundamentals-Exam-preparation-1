@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+class SinoTheWalker
+{
+    static void Main(string[] args)
+    {
+        string input = Console.ReadLine();
+        long numberSteps = long.Parse(Console.ReadLine());
+        long timeSecondsOneStep = long.Parse(Console.ReadLine());
+        DateTime startTime = DateTime.ParseExact(input, "HH:mm:ss", null);
+        double totalSeconds = (timeSecondsOneStep * numberSteps)%86400;
+        startTime = startTime.AddSeconds(totalSeconds);
+        string printing = startTime.ToString("HH:mm:ss", null);
+        Console.WriteLine($"Time Arrival: {printing}");
+    }
+}
