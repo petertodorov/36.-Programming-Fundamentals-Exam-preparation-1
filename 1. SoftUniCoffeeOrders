@@ -1,0 +1,27 @@
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+    class SoftUniCoffeeOrders
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            decimal totalPrice = new decimal();
+            for (int i = 0; i < n; i++)
+            {
+                decimal pricePerCapsule = decimal.Parse(Console.ReadLine());
+                DateTime orderDate = DateTime.ParseExact(Console.ReadLine(), "d/M/yyyy",null);
+                decimal capsulesCount = decimal.Parse(Console.ReadLine());
+                int daysInMonth = DateTime.DaysInMonth(orderDate.Year,orderDate.Month);
+               decimal orderPrice = (((decimal)daysInMonth * capsulesCount) * pricePerCapsule);
+                Console.WriteLine($"The price for the coffee is: ${orderPrice:F2}");
+                totalPrice += orderPrice;
+            }
+            Console.WriteLine("Total: ${0:0.00}",totalPrice);
+        }
+        
+    }
