@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+class EnduranceRally
+{
+    static void Main(string[] args)
+    {
+        string[] tickets = Console.ReadLine().Split(',').Select(x => x.Trim(new char[] {' '})).ToArray();
+        char[] symbols = new[] { '@', '#', '$', '^'};
+        foreach (var ticket in tickets)
+        {
+            if (ticket.Length!=20)
+            {
+                Console.WriteLine($"invalid ticket");
+            }
+            else 
+            {
+                string firstHalf = ticket.Remove(ticket.Length / 2, ticket.Length / 2).ToString();
+                string secondHalf = ticket.Remove(0,ticket.Length / 2).ToString();
+                if (!symbols.Any(x => firstHalf.Contains(new string(x, 6))) && !symbols.Any(x => secondHalf.Contains(new string(x, 6))))
+                {
+                    Console.WriteLine($"ticket \"{ticket}\" - no match");
+                }
+                else
+                {
+                    Regex checker = new Regex(@"([$]{6,}|[@]{6,}|[\^]{6,}|[#]{6,})");
+                    
+                    Match matchFirst = checker.Match(firstHalf);
+                    Match matchSecond= checker.Match(secondHalf);
+                    if (matchFirst.Success || matchSecond.Success)
+                    {
+                      int print =  matchFirst.Value.Length;
+                        if (print ==10)
+                        {
+                            Console.WriteLine($"ticket \"{ticket}\" - {print}{String.Join("",matchFirst.Value.Distinct())} Jackpot!");
+                        }
+                        else
+                        {
+                            int value = Math.Min(matchFirst.Value.Length, matchSecond.Value.Length);
+                            Console.WriteLine($"ticket \"{ticket}\" - {value}{String.Join("", matchFirst.Value.Distinct())}");
+                        }
+                    }
+                } 
+            }
+        }
+    }
+
+ 
+}
