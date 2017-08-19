@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+class EnduranceRally
+{
+    static void Main(string[] args)
+    {
+        string[] racerList = Console.ReadLine().Split(' ');
+        decimal[] zonesFuel = Console.ReadLine().Split(' ').Select(decimal.Parse).ToArray();
+        long[] checkpoint = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
+        decimal fuelOfRacer = new int();
+       string racerName = string.Empty;
+        foreach (var racer in racerList)
+        {
+            fuelOfRacer = (decimal)Convert.ToInt32(racer.First());
+            int currentZoneIndex = new int();
+            for (int i = 0; i < zonesFuel.Length; i++)
+            {
+                if (checkpoint.Contains(i)&&fuelOfRacer>0)
+                {
+                    currentZoneIndex = i;
+                    fuelOfRacer += zonesFuel[i];
+                }
+                else 
+                {
+                    currentZoneIndex = i;
+                    fuelOfRacer -= zonesFuel[i];
+                    if (fuelOfRacer <= 0)
+                    {
+                        Console.WriteLine($"{racer} - reached {currentZoneIndex}");
+                        break;
+                    }
+                }
+            }
+            if (fuelOfRacer>0)
+            {
+                Console.WriteLine($"{racer} - fuel left {fuelOfRacer:0.00}");
+            }
+        }
+    }
+}
